@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import * as action from '../../../js/actions/index';
+import * as action from '../../store/actions/index';
 import { Field } from '../Field/Field';
 import { Information } from '../Information/Information';
 import styles from './Game.module.css';

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import * as selector from '../../../js/selectors/index';
-import * as constant from '../../../js/constants/index';
+import * as selector from '../../store/selectors/index';
+import * as constant from '../../store/constants/index';
 import styles from './Information.module.css';
 
 export const Information = () => {

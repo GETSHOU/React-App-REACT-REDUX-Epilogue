@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import * as selector from '../../../js/selectors/index';
-import * as constant from '../../../js/constants/index';
-import * as action from '../../../js/actions/index';
+import * as selector from '../../store/selectors/index';
+import * as constant from '../../store/constants/index';
+import * as action from '../../store/actions/index';
 import styles from './Field.module.css';
 
 export const Field = () => {
