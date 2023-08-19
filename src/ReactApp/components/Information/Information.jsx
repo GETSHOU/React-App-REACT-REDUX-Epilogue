@@ -1,15 +1,21 @@
-import { useSelector } from 'react-redux';
-import * as selector from '../../store/selectors/index';
+import { Component } from 'react';
+import { connect } from 'react-redux';
 import * as constant from '../../store/constants/index';
 import styles from './Information.module.css';
 
-export const Information = () => {
-	const moveStatusState = useSelector(selector.getStateMoveStatus);
-	const currentPlayerState = useSelector(selector.getStateCurrentPlayer);
-
-	return (
-		<div className={styles.information}>
-			{`${moveStatusState}${(moveStatusState !== constant.STATUS_DRAW) ? currentPlayerState : ''}`}
-		</div>
-	)
+export class InformationContainer extends Component {
+	render() {
+		return (
+			<div className={styles.information}>
+				{`${this.props.moveStatusState}${(this.props.moveStatusState !== constant.STATUS_DRAW) ? this.props.currentPlayerState : ''}`}
+			</div>
+		)
+	};
 };
+
+const mapStateToProps = (state) => ({
+	moveStatusState: state.moveStatus,
+	currentPlayerState: state.currentPlayer,
+});
+
+export const Information = connect(mapStateToProps)(InformationContainer);

@@ -1,61 +1,75 @@
-import { useSelector, useDispatch } from 'react-redux';
-import * as selector from '../../store/selectors/index';
+import { Component } from 'react';
+import { connect } from 'react-redux';
 import * as constant from '../../store/constants/index';
 import * as action from '../../store/actions/index';
 import styles from './Field.module.css';
 
-export const Field = () => {
-	const fieldState = useSelector(selector.getStateField);
-	const moveStatusState = useSelector(selector.getStateMoveStatus);
-	const currentPlayerState = useSelector(selector.getStateCurrentPlayer);
+export class FieldContainer extends Component {
+	constructor(props) {
+		super(props);
 
-	const dispatch = useDispatch();
+		this.fieldCopy = [...props.fieldState];
+	}
 
-	const fieldCopy = [...fieldState];
-
-	const checkWin = (field, currentPlayer) => {
+	checkWin(field, currentPlayer) {
 		return constant.WIN_PATTERNS.some((winPattern) => {
 			return winPattern.every((cellIndex) => field[cellIndex] === currentPlayer);
 		});
 	};
 
-	const handleMove = (i, cellValue) => {
-		if (moveStatusState === constant.STATUS_WIN
-			|| moveStatusState === constant.STATUS_DRAW
+	handleMove(i, cellValue) {
+		if (this.props.moveStatusState === constant.STATUS_WIN
+			|| this.props.moveStatusState === constant.STATUS_DRAW
 			|| cellValue !== '') {
 			return;
 		}
 
-		fieldCopy[i] = currentPlayerState;
+		this.fieldCopy[i] = this.props.currentPlayerState;
 
-		dispatch(action.setField(fieldCopy));
+		this.props.setField(this.fieldCopy);
 
-		if(checkWin(fieldCopy, currentPlayerState)) {
-			dispatch(action.setMoveStatus(constant.STATUS_WIN));
-		} else if (!checkWin(fieldCopy, currentPlayerState) && !fieldCopy.includes('')) {
-			dispatch(action.setMoveStatus(constant.STATUS_DRAW));
-		}	else if (currentPlayerState === constant.FIRST_PLAYER) {
-			dispatch(action.setCurrentPlayer(constant.SECOND_PLAYER));
-		}	else {
-			dispatch(action.setCurrentPlayer(constant.FIRST_PLAYER));
+		if (this.checkWin(this.fieldCopy, this.props.currentPlayerState)) {
+			this.props.setMoveStatus(constant.STATUS_WIN);
+		} else if (!this.checkWin(this.fieldCopy, this.props.currentPlayerState) && !this.fieldCopy.includes('')) {
+			this.props.setMoveStatus(constant.STATUS_DRAW);
+		} else if (this.props.currentPlayerState === constant.FIRST_PLAYER) {
+			this.props.setCurrentPlayer(constant.SECOND_PLAYER);
+		} else {
+			this.props.setCurrentPlayer(constant.FIRST_PLAYER);
 		}
 	};
 
-	return (
-		<div className={styles.fieldWrapper}>
-			<div className={styles.field}>
-				{fieldState.map((cellValue, i) => {
-					return (
-						<button
-							key={i}
-							className={styles.cell}
-							onClick={() => handleMove(i, cellValue)}
-						>
-							{cellValue}
-						</button>
-							);
-				})}
+	render() {
+		return (
+			<div className={styles.fieldWrapper}>
+				<div className={styles.field}>
+					{this.props.fieldState.map((cellValue, i) => {
+						return (
+							<button
+								key={i}
+								className={styles.cell}
+								onClick={() => this.handleMove(i, cellValue)}
+							>
+								{cellValue}
+							</button>
+								);
+					})}
+				</div>
 			</div>
-		</div>
-	);
-}
+		);
+	}
+};
+
+const mapStateToProps = (state) => ({
+	fieldState: state.field,
+	moveStatusState: state.moveStatus,
+	currentPlayerState: state.currentPlayer,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	setField: (field) => dispatch(action.setField(field)),
+	setMoveStatus: (currentGameStatus) => dispatch(action.setMoveStatus(currentGameStatus)),
+	setCurrentPlayer: (currentPlayer) => dispatch(action.setCurrentPlayer(currentPlayer)),
+});
+
+export const Field = connect(mapStateToProps, mapDispatchToProps)(FieldContainer);
