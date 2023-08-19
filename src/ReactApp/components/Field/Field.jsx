@@ -7,7 +7,7 @@ import styles from './Field.module.css';
 export class FieldContainer extends Component {
 	constructor(props) {
 		super(props);
-
+		console.log(props);
 		this.fieldCopy = [...props.fieldState];
 	}
 
@@ -40,6 +40,7 @@ export class FieldContainer extends Component {
 	};
 
 	render() {
+		console.log(this.fieldCopy);
 		return (
 			<div className={styles.fieldWrapper}>
 				<div className={styles.field}>
@@ -57,7 +58,13 @@ export class FieldContainer extends Component {
 				</div>
 			</div>
 		);
-	}
+	};
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.fieldState !== this.props.fieldState) {
+			this.fieldCopy = [...this.props.fieldState];
+		}
+	};
 };
 
 const mapStateToProps = (state) => ({
