@@ -1,16 +1,12 @@
-// export { fieldReducer } from '../reducers/modules/field-reducer';
-// export { moveStatusReducer } from '../reducers/modules/move-status-reducer';
-// export { setCurrentPlayerReducer } from '../reducers/modules/set-current-player-reducer';
-
 import * as constant from '../constants/index';
 
-const defaultState = {
+const initialState = {
 	field: constant.DEFAULT_STATE_FIELD,
 	moveStatus: constant.STATUS_MOVES,
 	currentPlayer: constant.FIRST_PLAYER,
 };
 
-export const reducer = (state = defaultState, action) => {
+const fieldReducer = (state = initialState, action) => {
 	const { type, payload } = action;
 
 	switch (type) {
@@ -30,8 +26,10 @@ export const reducer = (state = defaultState, action) => {
 				currentPlayer: payload,
 			};
 		case constant.RESET_FIELD:
-			return defaultState;
+			return initialState;
 		default:
 			return state;
 	}
 };
+
+export default fieldReducer;

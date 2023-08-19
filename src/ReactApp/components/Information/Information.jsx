@@ -4,8 +4,8 @@ import * as constant from '../../store/constants/index';
 import styles from './Information.module.css';
 
 export const Information = () => {
-	const moveStatusState = useSelector(selector.getDefaultStateMoveStatus);
-	const currentPlayerState = useSelector(selector.getDefaultStateCurrentPlayer);
+	const moveStatusState = useSelector(selector.getStateMoveStatus);
+	const currentPlayerState = useSelector(selector.getStateCurrentPlayer);
 
 	return (
 		<div className={styles.information}>

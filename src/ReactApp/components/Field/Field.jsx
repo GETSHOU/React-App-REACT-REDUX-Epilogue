@@ -5,9 +5,9 @@ import * as action from '../../store/actions/index';
 import styles from './Field.module.css';
 
 export const Field = () => {
-	const fieldState = useSelector(selector.getDefaultStateField);
-	const moveStatusState = useSelector(selector.getDefaultStateMoveStatus);
-	const currentPlayerState = useSelector(selector.getDefaultStateCurrentPlayer);
+	const fieldState = useSelector(selector.getStateField);
+	const moveStatusState = useSelector(selector.getStateMoveStatus);
+	const currentPlayerState = useSelector(selector.getStateCurrentPlayer);
 
 	const dispatch = useDispatch();
 
