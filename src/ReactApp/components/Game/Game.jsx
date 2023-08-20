@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as action from '../../store/actions/index';
 import { Field } from '../Field/Field';
 import { Information } from '../Information/Information';
-import styles from './Game.module.css';
 
 export class GameContainer extends Component {
 	constructor(props) {
@@ -16,10 +15,10 @@ export class GameContainer extends Component {
 	};
 	render() {
 		return (
-			<div className={styles.gameWrapper}>
+			<div className='flex flex-col items-center'>
 				<Information/>
 				<Field/>
-				<button className={styles.buttonStartOver} onClick={this.handleRestart}>
+				<button className='buttonStartAgain' onClick={this.handleRestart}>
 					Начать заново
 				</button>
 			</div>

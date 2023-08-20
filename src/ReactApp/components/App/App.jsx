@@ -1,13 +1,12 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from './App.module.css';
 import { Game } from '../Game/Game';
 
 export class AppContainer extends Component {
 	render() {
 		return (
-			<div className={styles.app}>
-				<h1 className={styles.appTitle}>Игра "Крестики-нолики"</h1>
+			<div className='flex flex-col flex-1 items-center pt-20 pr-4 pb-20 pl-4 select-none'>
+				<h1 className='text-4xl mb-24'>Игра "Крестики-нолики"</h1>
 				<Game />
 			</div>
 		)

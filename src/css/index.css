@@ -1,27 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
-	height: 100%;
+	@apply h-full;
 }
 
 html {
-	min-width: 320px;
+	@apply min-w-[320px];
 }
 
 body {
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	background: linear-gradient(33deg, #f78fad, #fdeb82);
-}
-
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+	@apply text-base font-medium;
+	font-family: theme('fontFamily.montserrat');
+	background: theme('gradient.main');
 }
 
 #root {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	width: 100%;
+	@apply flex flex-col h-full w-full;
+}
+
+@layer utilities {
+	.shadow-custom {
+		box-shadow: theme('boxShadow.custom');
+	}
+	.transition-custom {
+		transition: theme('transition.custom');
+	}
+}
+
+@layer components {
+	.buttonStartAgain {
+		@apply bg-white rounded text-xl pt-2.5 pb-2.5 pr-5 pl-5 transition-custom hover:text-white hover:bg-black/[.8] hover:shadow-custom;
+	}
+	.field {
+		@apply grid grid-rows-[1fr_1fr_1fr] grid-cols-[1fr_1fr_1fr] border-solid border-4 border-white;
+	}
+}
+
+.cell {
+	@apply overflow-hidden flex items-center justify-center w-20 h-20 p-1.5 text-5xl text-white border-solid border border-white uppercase cursor-pointer transition-custom hover:bg-black/[.4];
 }

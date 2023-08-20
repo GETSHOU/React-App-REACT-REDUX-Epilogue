@@ -2,12 +2,11 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import * as constant from '../../store/constants/index';
 import * as action from '../../store/actions/index';
-import styles from './Field.module.css';
 
 export class FieldContainer extends Component {
 	constructor(props) {
 		super(props);
-		console.log(props);
+
 		this.fieldCopy = [...props.fieldState];
 	}
 
@@ -40,15 +39,14 @@ export class FieldContainer extends Component {
 	};
 
 	render() {
-		console.log(this.fieldCopy);
 		return (
-			<div className={styles.fieldWrapper}>
-				<div className={styles.field}>
+			<div className='flex flex-col items-center mb-12'>
+				<div className='field'>
 					{this.props.fieldState.map((cellValue, i) => {
 						return (
 							<button
 								key={i}
-								className={styles.cell}
+								className='cell'
 								onClick={() => this.handleMove(i, cellValue)}
 							>
 								{cellValue}
